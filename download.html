@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>下载四川众乐棋牌</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <style>
+        html,
+        body {
+            -ms-touch-action: none;
+            background: #FFFFFF;
+            padding: 0;
+            border: 0;
+            margin: 0;
+            height: 100%;
+        }
+    </style>
+    <style>
+        body {
+            background:url(./img/bg2.jpg) 0 0 no-repeat;
+            background-size: 100% auto;
+        }
+        .download-bg {
+            width: 100%;
+            height: 100%;
+            background:url(./img/bg2.jpg) 0 0 no-repeat;
+            background-size: 100% auto;
+        }
+        .dbutton {
+            position: relative;
+            display: block;
+            width: 50%;
+            max-width: 200px;
+            height: 60px;
+            background:url(./img/dbtn2.png) 0 0 no-repeat;
+            background-size: 100%  auto;
+            margin: 0 auto 0;
+            top: 25%;
+            outline: none;
+        }
+        .dbutton:hover, .dbutton:active {
+            background-position: 0 100%;
+        }
+        .open-tip {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color:rgba(0,0,0,0.6);
+            display: none;
+        }
+        .tip-img {
+            width: 95%;
+            max-width: 350px;
+            height: 100%;
+            top: 0;
+            right: 20px;
+            position: absolute;
+            background:url(./img/open.png) 0 0 no-repeat;
+            background-size: 100% auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="download-bg" id="downloadBg">
+        <a id="downloadBtn" href="javascript:;" target="_blank" class="dbutton"></a>
+    </div>
+    <div class="open-tip" id="downloadTip">
+        <div id="tipImage" class="tip-img"></div>
+    </div>
+    <script>
+        var a = function () {
+            var getE = function (ids) {
+                return document.getElementById(ids);
+            };
+            var urlArgs = function (k){
+                var args = {};
+                var query = location.search.substring(1);
+                var pairs = query.split("&");
+                for(var i = 0;i < pairs.length; i++){
+                    var pos = pairs[i].indexOf("=");
+                    if(pos == -1) continue;
+                    var name = pairs[i].substring(0, pos);
+                    var value = pairs[i].substring(pos + 1);
+                    value = decodeURIComponent(value);
+                    args[name] = value;
+                }
+                if (typeof k === 'string') {
+                    return args[k];
+                }
+                return args;
+            };
+            getE('downloadBg').style.backgroundImage = 'url(./img/bg.jpg)';
+            // 设置高度
+            getE('downloadBtn').style.height = parseInt(getE('downloadBtn').clientWidth) * 119 / 383 + 'px';
+            getE('downloadBtn').style.backgroundImage = 'url(./img/btn.png)';
+            // 判断微信
+            var ua = navigator.userAgent;
+            var downloadUrl;
+            // 判断系统，ios还是Android
+            if (/iPhone/i.test(ua)) {
+                // ios系统
+                downloadUrl = 'https://fir.im/sczlqp2';
+            } else if (/Android/i.test(ua)) {
+                // android系统
+                downloadUrl = 'https://fir.im/sczlqp1';
+                getE('tipImage').style.backgroundImage = 'url(./img/openandroid.png)';
+            }
+            if (!/MicroMessenger/i.test(ua)) {
+                // 不是微信，直接下载
+                getE('downloadBtn').href = 'zlqp://game?roomdata=' + (urlArgs('roomdata') || 0);
+                // getE('downloadBtn').src = downloadUrl;
+                getE('downloadBtn').onclick = function (e) {
+                    setTimeout(function () {
+                        location.href = downloadUrl;
+                    }, 2500);
+                };
+            } else {
+                getE('downloadBtn').onclick = function (e) {
+                    getE('downloadTip').style.display = 'block';
+                };
+            }
+        };
+        a();
+    </script>
+</body>
+</html>
